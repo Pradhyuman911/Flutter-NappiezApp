@@ -165,3 +165,165 @@ List<String> banDList = [
   "assets/images/ban11.jpg",
   "assets/images/ban5.jpg",
 ];
+List dataItems = [
+  {
+    "id": 1,
+    "code": "CS667880",
+    "name":
+        "Babyhug Dungaree Style Striped Frock with Half Sleeves Inner Tee - Blue White",
+    "img": "assets/images/trans1.jpg",
+    "price": 15.5,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/trans1.jpg"},
+      {"id": 2, "value": "assets/images/trans2.jpg"},
+      {"id": 3, "value": "assets/images/trans1.jpg"},
+      {"id": 4, "value": "assets/images/trans2.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 2,
+    "code": "CS883398",
+    "name": "Babyhug Full Sleeves Checked Shirt & Trouser - Beige Red",
+    "img": "assets/images/trans3.jpg",
+    "price": 18.00,
+    "promotionPrice": 15.00,
+    "color": [
+      {"id": 1, "value": "assets/images/trans3.jpg"},
+      {"id": 2, "value": "assets/images/trans4.jpg"},
+      {"id": 3, "value": "assets/images/trans3.jpg"},
+      {"id": 4, "value": "assets/images/trans4.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 3,
+    "code": "CS757458",
+    "name":
+        "Little Bansi Full Sleeves Zardosi Work Kurti With Sharara & Dupatta - Blue",
+    "img": "assets/images/trans5.jpg",
+    "price": 16.5,
+    "promotionPrice": 12.5,
+    "color": [
+      {"id": 1, "value": "assets/images/trans5.jpg"},
+      {"id": 2, "value": "assets/images/trans6.jpg"},
+      {"id": 3, "value": "assets/images/trans5.jpg"},
+      {"id": 4, "value": "assets/images/trans6.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 4,
+    "code": "CS605084",
+    "name": "Babyhug Full Sleeves 4 Piece Party Suit - Grey",
+    "img": "assets/images/trans7.jpg",
+    "price": 12.6,
+    "promotionPrice": 11.00,
+    "color": [
+      {"id": 1, "value": "assets/images/trans7.jpg"},
+      {"id": 2, "value": "assets/images/trans8.jpg"},
+      {"id": 3, "value": "assets/images/trans7.jpg"},
+      {"id": 4, "value": "assets/images/trans8.jpg"}
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 5,
+    "code": "CP555545",
+    "name":
+        "Enfance All Over Golden Stars Printed Sleeveless Flared Dress - White",
+    "img": "assets/images/trans9.jpg",
+    "price": 17.00,
+    "promotionPrice": 13.00,
+    "color": [
+      {"id": 1, "value": "assets/images/trans9.jpg"},
+      {"id": 2, "value": "assets/images/trans10.jpg"},
+      {"id": 3, "value": "assets/images/trans9.jpg"},
+      {"id": 4, "value": "assets/images/trans10.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 6,
+    "code": "CP598703",
+    "name": "Cucumber Full Sleeves Tee & Lounge Pant Ball Print - Green",
+    "img": "assets/images/trans11.jpg",
+    "price": 14.5,
+    "promotionPrice": 17.00,
+    "color": [
+      {"id": 1, "value": "assets/images/trans11.jpg"},
+      {"id": 2, "value": "assets/images/trans12.jpg"},
+      {"id": 3, "value": "assets/images/trans11.jpg"},
+      {"id": 4, "value": "assets/images/trans12.jpg"}
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 7,
+    "code": "CS605084",
+    "name":
+        "Hopscotch Green Text Print Vertical Stripes Full Sleeves T-Shirt Hoodie and Pant Set",
+    "img": "assets/images/trans13.jpg",
+    "price": 12.6,
+    "promotionPrice": 11.00,
+    "color": [
+      {"id": 1, "value": "assets/images/trans13.jpg"},
+      {"id": 2, "value": "assets/images/trans14.jpg"},
+      {"id": 3, "value": "assets/images/trans13.jpg"},
+      {"id": 4, "value": "assets/images/trans14.jpg"}
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 8,
+    "code": "CS667880",
+    "name": "2-7T Girl Dress Princess Autumn Winter Long Sleeve",
+    "img": "assets/images/trans15.jpg",
+    "price": 15.5,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/trans15.jpg"},
+      {"id": 2, "value": "assets/images/trans16.jpg"},
+      {"id": 3, "value": "assets/images/trans15.jpg"},
+      {"id": 4, "value": "assets/images/trans16.jpg"},
+      {"id": 5, "value": "assets/images/trans15.jpg"},
+      {"id": 6, "value": "assets/images/trans16.jpg"},
+      {"id": 7, "value": "assets/images/trans15.jpg"},
+      {"id": 8, "value": "assets/images/trans16.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+];
