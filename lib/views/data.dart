@@ -326,4 +326,43 @@ List dataItems = [
       {"id": 3, "value": "12"}
     ]
   },
+  {
+    "id": 9,
+    "code": "CP598703",
+    "name": "Cucumber Full Sleeves Tee & Lounge Pant Ball Print - Green",
+    "img": "assets/images/trans11.jpg",
+    "price": 14.5,
+    "promotionPrice": 17.00,
+    "color": [
+      {"id": 1, "value": "assets/images/trans11.jpg"},
+      {"id": 2, "value": "assets/images/trans12.jpg"},
+      {"id": 3, "value": "assets/images/trans11.jpg"},
+      {"id": 4, "value": "assets/images/trans12.jpg"}
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 10,
+    "code": "CS757458",
+    "name":
+        "Little Bansi Full Sleeves Zardosi Work Kurti With Sharara & Dupatta - Blue",
+    "img": "assets/images/trans5.jpg",
+    "price": 16.5,
+    "promotionPrice": 12.5,
+    "color": [
+      {"id": 1, "value": "assets/images/trans5.jpg"},
+      {"id": 2, "value": "assets/images/trans6.jpg"},
+      {"id": 3, "value": "assets/images/trans5.jpg"},
+      {"id": 4, "value": "assets/images/trans6.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
 ];

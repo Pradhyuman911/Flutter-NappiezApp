@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:nappies_direct/views/allProducts.dart';
+// import 'package:nappies_direct/views/cart.dart';
+import 'package:nappies_direct/views/shop_items.dart';
+import 'package:nappies_direct/views/wishlist.dart';
 import 'data.dart';
 import 'fashion.dart';
 import 'drawer.dart';
@@ -187,7 +191,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ]),
                         IconButton(
-                            onPressed: null,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AllProductlist()));
+                            },
                             icon: Icon(
                               Icons.arrow_forward,
                               size: 30,
@@ -240,7 +249,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ]),
                         IconButton(
-                            onPressed: null,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AllProductlist()));
+                            },
                             icon: Icon(
                               Icons.arrow_forward,
                               size: 30,
@@ -274,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PinterestGrid()));
+                                      builder: (context) => AllProductlist()));
                             },
                             icon: Icon(
                               Icons.arrow_forward,
@@ -382,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                                   tag: dataItems[index]['id'].toString(),
                                   child: Container(
                                     width: (size.width - 16) / 2,
-                                    height: (size.width) / 2,
+                                    height: (size.width - 16) / 2,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: AssetImage(
@@ -443,7 +457,12 @@ class _HomePageState extends State<HomePage> {
                             size: 27.0,
                             color: Colors.black,
                           ),
-                          onPressed: null),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          }),
                     ),
                     BottomNavigationBarItem(
                       // ignore: deprecated_member_use
@@ -467,7 +486,10 @@ class _HomePageState extends State<HomePage> {
                             size: 27.0,
                             color: Colors.black,
                           ),
-                          onPressed: null),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShopItems()))),
                     ),
                     BottomNavigationBarItem(
                       // ignore: deprecated_member_use
@@ -479,7 +501,10 @@ class _HomePageState extends State<HomePage> {
                             size: 27.0,
                             color: Colors.black,
                           ),
-                          onPressed: null),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Wishlist()))),
                     ),
                     BottomNavigationBarItem(
                       // ignore: deprecated_member_use

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nappies_direct/views/shop_items.dart';
+import 'package:nappies_direct/views/wishlist.dart';
 
 import 'home.dart';
-
 
 class DrawerApp extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class DrawerApp extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 10,bottom: 10),
+                  margin: const EdgeInsets.only(top: 10, bottom: 10),
                   child: Text(
                     'soniacp@gmail.com',
                     style: TextStyle(
@@ -58,22 +59,41 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text('Profile'),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
             },
-            ),
+          ),
           ListTile(
-            leading:Icon(Icons.settings),
-            title: Text('Go to Settings'),
-            onTap: (){
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            leading: Icon(Icons.shopping_cart),
+            title: Text('My Cart'),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ShopItems()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Wishlist'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Wishlist()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Go to settings'),
+            onTap: () {
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => Wishlist()));
             },
           ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Logout"),
-            onTap: (){
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
             },
           )
         ],

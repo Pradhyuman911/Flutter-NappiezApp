@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nappies_direct/views/drawer.dart';
+import 'package:nappies_direct/views/shoppingList.dart';
+// import 'package:nappies_direct/views/shoppingList.dart';
 // import 'package:nappies_direct/views/home.dart';
 // import 'data.dart';
 import 'data.dart';
@@ -98,7 +100,7 @@ class PinterestGrid extends StatelessWidget {
                 itemBuilder: (context, index) => Container(
                   height: 200,
                   child: ImageCard(
-                    imageData: imgList[index],
+                    imgList[index],
                   ),
                 ),
                 staggeredTileBuilder: (index) => StaggeredTile.fit(1),
@@ -114,11 +116,7 @@ class PinterestGrid extends StatelessWidget {
 }
 
 class ImageCard extends StatefulWidget {
-  const ImageCard({
-    this.imageData,
-  });
-
-  final ImageData imageData;
+  ImageCard(imgList);
 
   @override
   _ImageCardState createState() => _ImageCardState();
@@ -127,63 +125,58 @@ class ImageCard extends StatefulWidget {
 class _ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(16.0),
-        child: InkWell(
-          onDoubleTap: () {
-            final snackBar = SnackBar(
-              content: Text("You added this image into your Wishlist "),
-              backgroundColor: Colors.black,
-            );
-            Scaffold.of(context).showSnackBar(snackBar);
+    return Wrap(
+      children: List.generate(imgList.length, (index) {
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => ShoppingPage(
+                          id: imgList[index]['id'].toString(),
+                          image: imgList[index]['image'],
+                        )));
           },
-          child: Stack(children: [
-            Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(widget.imageData.image),
-                      fit: BoxFit.cover),
-                ),
-                child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomRight,
-                            colors: [
-                      Colors.black.withOpacity(.3),
-                      Colors.black.withOpacity(.2),
-                    ])))),
-            Column(
+          child: Card(
+              elevation: 2,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+                children: <Widget>[
+                  Container(
+                    width: 200,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(imgList[index]['image']),
+                            fit: BoxFit.cover)),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 6.0),
+                    padding: const EdgeInsets.only(left: 15),
                     child: Text(
-                      widget.imageData.title,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                      imgList[index]['title'],
+                      style: TextStyle(fontSize: 16),
                     ),
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0, bottom: 0),
-                          child: Text(
-                            " \$ " + '${widget.imageData.price}' + ".00",
-                            style: TextStyle(
-                                fontSize: 18, color: Colors.purple[900]),
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.favorite,
-                                color: Colors.red, size: 28))
-                      ])
-                ])
-          ]),
-        ));
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      "\$" + imgList[index]['price'].toString(),
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              )),
+        );
+      }),
+    );
   }
 }
