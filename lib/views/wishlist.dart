@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nappies_direct/bloc/wishlist_bloc.dart';
+import 'package:nappies_direct/views/allProducts.dart';
 import 'package:nappies_direct/views/drawer.dart';
 // import 'package:nappies_direct/views/appBar.dart';
 
@@ -59,9 +60,15 @@ class Wishlist extends StatelessWidget {
                   children: <Widget>[
                     Expanded(child: checkoutListBuilder(snapshot)),
                     RaisedButton(
-                      onPressed: () {},
-                      child: Text("My Wishlist"),
-                      color: Theme.of(context).primaryColor,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AllProductlist()));
+                      },
+                      child: Text("Add More Items",
+                          style: TextStyle(fontSize: 18)),
+                      color: Colors.pink[50],
                     ),
                     SizedBox(height: 40)
                   ],

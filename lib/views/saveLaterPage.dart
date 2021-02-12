@@ -3,15 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:nappies_direct/views/checkout.dart';
 
 import 'package:nappies_direct/bloc/cart_items_bloc.dart';
+import 'package:nappies_direct/views/drawer.dart';
 
-class ShopItems extends StatelessWidget {
+class ShopItems extends StatefulWidget {
+  @override
+  _ShopItemsState createState() => _ShopItemsState();
+}
+
+class _ShopItemsState extends State<ShopItems> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerApp(),
       appBar: AppBar(
-        title: Text('My Cart'),
-        actions: <Widget>[
+        leading: IconButton(
+            icon: Icon(
+              Icons.sort,
+              color: Colors.purple[900],
+              size: 30,
+            ),
+            onPressed: () => _scaffoldKey.currentState.openDrawer()),
+        iconTheme: IconThemeData(
+          color: Colors.purple[900],
+        ),
+        backgroundColor: Colors.pink[50],
+        title: Text('My Cart',
+            style: TextStyle(color: Colors.purple[900], fontSize: 22)),
+        actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(
+              Icons.search,
+              size: 30,
+              color: Colors.purple[900],
+            ),
+            onPressed: null,
+          ),
+          IconButton(
+            icon: Icon(Icons.shopping_cart, size: 30),
             onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Checkout())),
           )
@@ -57,11 +86,21 @@ Widget shopItemsListBuilder(snapshot) {
           ),
           child: Image.asset(shopList[i]['image'], fit: BoxFit.cover),
         ),
-        title: Text(shopList[i]['title']),
-        subtitle: Text("\$${shopList[i]['price']}"),
+        title: Text(shopList[i]['title'],
+            style: TextStyle(
+              fontSize: 15,
+            )),
+        subtitle: Text(
+          "\$${shopList[i]['price']}",
+          style: TextStyle(fontSize: 17, color: Colors.purple[900]),
+        ),
         trailing: IconButton(
           icon: Icon(Icons.add_shopping_cart),
           onPressed: () {
+            final snackBar = SnackBar(
+                duration: Duration(milliseconds: 500),
+                content: Text('Your Item is added to Cart'));
+            Scaffold.of(context).showSnackBar(snackBar);
             bloc.addToCart(shopList[i]);
           },
         ),

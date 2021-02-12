@@ -1,52 +1,98 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:nappies_direct/views/shop_items.dart';
+import 'package:nappies_direct/views/login.dart';
+import 'package:nappies_direct/views/profile.dart';
+import 'package:nappies_direct/views/saveLaterPage.dart';
 import 'package:nappies_direct/views/wishlist.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
+import 'login2.dart';
 
-class DrawerApp extends StatelessWidget {
+class DrawerApp extends StatefulWidget {
+  @override
+  _DrawerAppState createState() => _DrawerAppState();
+}
+
+class _DrawerAppState extends State<DrawerApp> {
+  dynamic email = "";
+  dynamic name = "";
+
+  Future<dynamic> getEmailPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dynamic email = prefs.getString('email');
+    dynamic name = prefs.getString('name');
+    return updateEmail(email, name);
+  }
+
+  @override
+  void initState() {
+    getEmailPreference();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Drawer(
       child: Column(
         children: [
           Container(
-            color: Colors.lightBlue,
+            color: Colors.pink[50],
             child: Column(
               children: [
                 Container(
                   margin: const EdgeInsets.only(top: 30),
                   padding: const EdgeInsets.all(10),
-                  height: 130,
-                  width: 130,
+                  height: size.height * 0.2,
+                  width: size.width * 0.8,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       // color:Colors.red
                       image: DecorationImage(
-                          image: AssetImage("assets/images/img1.jpg"),
+                          image: AssetImage("assets/images/user.jpg"),
                           fit: BoxFit.cover)),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    'Pradhyuman',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
+                FutureBuilder(
+                  future: getEmailPreference(),
+                  initialData: "First Login ...",
+                  builder: (BuildContext context, text) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(
-                    'soniacp@gmail.com',
-                    style: TextStyle(
-                      color: Colors.grey[300],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
+                FutureBuilder(
+                  future: getEmailPreference(),
+                  initialData: "First Login ...",
+                  builder: (BuildContext context, text) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            email,
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
                 Container(
                   height: 1,
@@ -60,8 +106,16 @@ class DrawerApp extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Profile'),
             onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.login),
+            title: Text("Login"),
+            onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+                  context, MaterialPageRoute(builder: (context) => LoginApi()));
             },
           ),
           ListTile(
@@ -84,20 +138,27 @@ class DrawerApp extends StatelessWidget {
             leading: Icon(Icons.settings),
             title: Text('Go to settings'),
             onTap: () {
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => Wishlist()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Logout"),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           )
         ],
       ),
     );
+  }
+
+  updateEmail(dynamic email, dynamic name) async {
+    setState(() {
+      this.email = email;
+      this.name = name;
+    });
   }
 }

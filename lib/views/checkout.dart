@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 import 'package:nappies_direct/views/address.dart';
-import 'package:nappies_direct/views/shop_items.dart';
+import 'package:nappies_direct/views/saveLaterPage.dart';
 import 'package:nappies_direct/views/wishlist.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import 'drawer.dart';
 import 'home.dart';
 
 class Checkout extends StatefulWidget {
@@ -14,15 +15,45 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+        key: _scaffoldKey,
+        drawer: DrawerApp(),
         appBar: AppBar(
-          title: Text(
-            'Checkout',
-            // style: TextStyle(fontSize: 18, color: Colors.purple[600])
+          leading: IconButton(
+              icon: Icon(
+                Icons.sort,
+                color: Colors.purple[900],
+                size: 30,
+              ),
+              onPressed: () => _scaffoldKey.currentState.openDrawer()),
+          iconTheme: IconThemeData(
+            color: Colors.purple[900],
           ),
-          // backgroundColor: Colors.pink[50],
+          backgroundColor: Colors.pink[50],
+          title: Text('Checkout',
+              style: TextStyle(color: Colors.purple[900], fontSize: 22)),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                size: 30,
+                color: Colors.purple[900],
+              ),
+              onPressed: null,
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.notifications_active,
+                size: 30,
+                color: Colors.purple[900],
+              ),
+              onPressed: null,
+            ),
+          ],
         ),
         body: StreamBuilder(
           stream: bloc.getStream,
@@ -37,16 +68,18 @@ class _CheckoutState extends State<Checkout> {
                           itemCount: snapshot.data["cart items"].length,
                           itemBuilder: (BuildContext context, i) {
                             final cartList = snapshot.data["cart items"];
-                            // int qty = 1;
                             return Card(
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                      height: 150,
+                                      height: size.height * 0.2,
                                       child: Image.asset(cartList[i]['image'],
                                           fit: BoxFit.cover)),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -61,25 +94,35 @@ class _CheckoutState extends State<Checkout> {
                                               fontSize: 18,
                                               color: Colors.purple[600])),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 8.0),
                                             child: Container(
-                                              height: 40,
-                                              width: 150,
+                                              height: size.height * 0.04,
+                                              width: size.width * 0.3,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 5),
                                               child: NumberInputPrefabbed
-                                                  .roundedButtons(
+                                                  .leafyButtons(
                                                 controller:
                                                     TextEditingController(),
-                                                autovalidate: false,
-                                                incDecBgColor: Colors.amber,
+                                                incIconSize: 22,
+                                                decIconSize: 22,
                                                 buttonArrangement:
                                                     ButtonArrangement
                                                         .incLeftDecRight,
                                               ),
+                                              // NumberInputPrefabbed
+                                              //     .roundedButtons(
+                                              //   controller:
+                                              //       TextEditingController(),
+                                              //   autovalidate: false,
+                                              //   incDecBgColor: Colors.amber,
+                                              //   buttonArrangement:
+                                              //       ButtonArrangement
+                                              //           .incLeftDecRight,
+                                              // ),
                                             ),
                                           ),
                                           SizedBox(
@@ -101,14 +144,13 @@ class _CheckoutState extends State<Checkout> {
                           },
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 3),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: 300,
+                            width: size.width - 50,
                             padding: EdgeInsets.symmetric(horizontal: 15),
-                            height: 45,
+                            height: size.height * 0.06,
                             child: TextField(
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
@@ -122,13 +164,13 @@ class _CheckoutState extends State<Checkout> {
                             ),
                           ),
                           Container(
-                            width: 40,
-                            height: 40,
+                            width: size.width * 0.1,
+                            height: size.height * 0.1,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.black,
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            padding: EdgeInsets.symmetric(horizontal: 6),
                             child: InkWell(
                               onTap: () {
                                 showCupertinoModalBottomSheet(
@@ -382,8 +424,8 @@ class _CheckoutState extends State<Checkout> {
                             borderRadius: BorderRadius.circular(55),
                             color: Colors.pink[50],
                           ),
-                          width: 200,
-                          height: 40,
+                          width: size.width * 0.5,
+                          height: size.height * 0.05,
                           child: Align(
                             child: Text(
                               "Checkout",
@@ -406,11 +448,11 @@ class _CheckoutState extends State<Checkout> {
               canvasColor: Colors.pink[50],
             ),
             child: SizedBox(
-              height: 60,
+              height: 50,
               child: BottomNavigationBar(
                   showUnselectedLabels: false,
-                  selectedFontSize: 5,
-                  unselectedFontSize: 5,
+                  selectedFontSize: 1,
+                  unselectedFontSize: 1,
                   items: [
                     BottomNavigationBarItem(
                       // ignore: deprecated_member_use

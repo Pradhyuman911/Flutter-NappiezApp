@@ -81,12 +81,12 @@ List<Sales> saleList = [
   ),
   Sales(
     image: "assets/images/sale3.jpg",
-    title: "Baby Carrier \n --Best Carrier and Comfort",
+    title: "Baby Carrier \n --Best Carrier \nand Comfort",
     price: 570,
   ),
   Sales(
     image: "assets/images/sale4.jpg",
-    title: "Baby Products \n For Grooming and Health",
+    title: "Baby Products \n For Grooming \nand Health",
     price: 199,
   ),
   Sales(
@@ -106,47 +106,151 @@ List<Sales> saleList = [
   ),
 ];
 
-List<GridList> gridList = [
-  GridList(
-    image: "assets/images/fea3.jpg",
-    title: "Little Kangaroos \nDenim Shorts",
-    price: 251,
-  ),
-  GridList(
-    image: "assets/images/fea4.jpg",
-    title: "Kookie Full \nSleeves Hoodie",
-    price: 345,
-  ),
-  GridList(
-    image: "assets/images/sale6.jpg",
-    title: "Baby Bathing Kit \n Best Product on Sale",
-    price: 432,
-  ),
-  GridList(
-    image: "assets/images/sale4.jpg",
-    title: "Baby Products \n For Grooming ",
-    price: 199,
-  ),
-  GridList(
-    image: "assets/images/fea6.jpg",
-    title: "Full Sleeves Kurta \n & Pyjama Set ",
-    price: 399,
-  ),
-  GridList(
-    image: "assets/images/sale8.jpg",
-    title: "Baby Comfortable \n WheelChair",
-    price: 799,
-  ),
-  GridList(
-    image: "assets/images/fea2.jpg",
-    title: "Cucumbar Baby \nSummer Cap",
-    price: 189,
-  ),
-  GridList(
-    image: "assets/images/sale9.jpg",
-    title: "Combo Pack \n Toys",
-    price: 250,
-  ),
+List gridItems = [
+  {
+    "id": 1,
+    "image": "assets/images/fea3.jpg",
+    "title": "Little Kangaroos \nDenim Shorts",
+    "price": 251,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/fea3.jpg"},
+      {"id": 2, "value": "assets/images/grid1.jpg"},
+      {"id": 3, "value": "assets/images/grid2.jpg"},
+      {"id": 4, "value": "assets/images/grid3.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 2,
+    "image": "assets/images/fea4.jpg",
+    "title": "Kookie Full \nSleeves Hoodie",
+    'price': 345,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/fea4.jpg"},
+      {"id": 2, "value": "assets/images/grid2.jpg"},
+      {"id": 3, "value": "assets/images/grid7.jpg"},
+      {"id": 4, "value": "assets/images/fea6.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    'id': 3,
+    "image": "assets/images/sale6.jpg",
+    "title": "Baby Bathing Kit \n Best Product on Sale",
+    "price": 432,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/sale6.jpg"},
+      {"id": 2, "value": "assets/images/grid5.jpg"},
+      {"id": 3, "value": "assets/images/grid6.jpg"},
+      {"id": 4, "value": "assets/images/grid7.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 4,
+    "image": "assets/images/sale4.jpg",
+    "title": "Baby Products \n For Grooming ",
+    "price": 199,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/sale4.jpg"},
+      {"id": 2, "value": "assets/images/grid8.jpg"},
+      {"id": 3, "value": "assets/images/grid9.jpg"},
+      {"id": 4, "value": "assets/images/grid10.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    "id": 5,
+    'image': "assets/images/fea6.jpg",
+    'title': "Full Sleeves Kurta \n & Pyjama Set ",
+    'price': 399,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/sale4.jpg"},
+      {"id": 2, "value": "assets/images/grid1.jpg"},
+      {"id": 3, "value": "assets/images/grid7.jpg"},
+      {"id": 4, "value": "assets/images/grid4.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    'id': 6,
+    'image': "assets/images/sale8.jpg",
+    'title': "Baby Comfortable \n WheelChair",
+    'price': 799,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/sale8.jpg"},
+      {"id": 2, "value": "assets/images/grid8.jpg"},
+      {"id": 3, "value": "assets/images/grid2.jpg"},
+      {"id": 4, "value": "assets/images/grid10.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    'id': 7,
+    'image': "assets/images/fea2.jpg",
+    'title': "Cucumbar Baby \nSummer Cap",
+    'price': 189,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/fea2.jpg"},
+      {"id": 2, "value": "assets/images/grid1.jpg"},
+      {"id": 3, "value": "assets/images/grid8.jpg"},
+      {"id": 4, "value": "assets/images/grid9.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
+  {
+    'id': 8,
+    'image': "assets/images/sale9.jpg",
+    'title': "Combo Pack \n Toys",
+    'price': 250,
+    "promotionPrice": 11.50,
+    "color": [
+      {"id": 1, "value": "assets/images/sale9.jpg"},
+      {"id": 2, "value": "assets/images/grid9.jpg"},
+      {"id": 3, "value": "assets/images/grid3.jpg"},
+      {"id": 4, "value": "assets/images/grid6.jpg"},
+    ],
+    "size": [
+      {"id": 1, "value": "10"},
+      {"id": 2, "value": "11"},
+      {"id": 3, "value": "12"}
+    ]
+  },
 ];
 
 List<String> banList = [

@@ -76,6 +76,7 @@ class _ShopItemsWidgetState extends State<ShopItemsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return StreamBuilder(
       initialData: bloc.allItems, // The bloc was already instantiated.
       stream: bloc.getStream, // The stream we'll be listing to
@@ -85,57 +86,83 @@ class _ShopItemsWidgetState extends State<ShopItemsWidget> {
             ? Stack(
                 children: <Widget>[
                   Container(
-                    height: 648,
-                    padding: EdgeInsets.only(top: 15, left: 5, right: 5),
+                    height: size.height,
+                    padding: EdgeInsets.only(top: 10, left: 5, right: 5),
                     child: StaggeredGridView.countBuilder(
                       crossAxisCount: 2,
                       itemCount: snapshot.data["shop items"].length,
                       itemBuilder: (context, i) {
                         final shopList = snapshot.data["shop items"];
                         // var isPressed = false;
-                        return Card(
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                child: Image.asset(shopList[i]['image'],
-                                    fit: BoxFit.cover),
-                              ),
-                              Text(shopList[i]['title']),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("\$${shopList[i]['price']}"),
-                                  IconButton(
-                                      icon: toggle
-                                          ? Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.grey[600],
-                                              size: 30,
-                                            )
-                                          : Icon(
-                                              Icons.favorite,
-                                              color: Colors.red[600],
-                                              size: 30,
-                                            ),
-                                      onPressed: () {
-                                        setState(() {
-                                          toggle = !toggle;
-                                        });
-                                        final snackBar = SnackBar(
-                                            duration:
-                                                Duration(milliseconds: 500),
-                                            content: Text(
-                                                'Your Item is added to Wishlist'));
-                                        Scaffold.of(context)
-                                            .showSnackBar(snackBar);
-                                        bloc.addToCart(shopList[i]);
-                                      }),
-                                ],
-                              )
-                            ],
+                        return InkWell(
+                          onDoubleTap: () {
+                            final snackBar = SnackBar(
+                                duration: Duration(milliseconds: 500),
+                                content:
+                                    Text('Your Item is added to Wishlist'));
+                            Scaffold.of(context).showSnackBar(snackBar);
+                            bloc.addToCart(shopList[i]);
+                          },
+                          child: Card(
+                            elevation: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  child: Image.asset(shopList[i]['image'],
+                                      fit: BoxFit.cover),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, top: 10),
+                                  child: Text(shopList[i]['title'],
+                                      style: TextStyle(fontSize: 17)),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10.0, bottom: 10),
+                                        child: Text(
+                                          "\$${shopList[i]['price']}",
+                                          style: TextStyle(
+                                              fontSize: 19,
+                                              height: 1.5,
+                                              color: Colors.purple[800]),
+                                        )),
+                                    // IconButton(
+                                    //     icon: toggle
+                                    //         ? Icon(
+                                    //             Icons.favorite_border,
+                                    //             color: Colors.grey[600],
+                                    //             size: 30,
+                                    //           )
+                                    //         : Icon(
+                                    //             Icons.favorite,
+                                    //             color: Colors.red[600],
+                                    //             size: 30,
+                                    //           ),
+                                    //     onPressed: () {
+                                    //       setState(() {
+                                    //         toggle = !toggle;
+                                    //       });
+                                    //       final snackBar = SnackBar(
+                                    //           duration:
+                                    //               Duration(milliseconds: 500),
+                                    //           content: Text(
+                                    //               'Your Item is added to Wishlist'));
+                                    //       Scaffold.of(context)
+                                    //           .showSnackBar(snackBar);
+                                    //       bloc.addToCart(shopList[i]);
+                                    //     }),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },

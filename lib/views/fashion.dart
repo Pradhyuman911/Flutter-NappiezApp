@@ -1,19 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nappies_direct/views/drawer.dart';
 import 'package:nappies_direct/views/shoppingList.dart';
-// import 'package:nappies_direct/views/shoppingList.dart';
-// import 'package:nappies_direct/views/home.dart';
-// import 'data.dart';
 import 'data.dart';
 import 'fashionData.dart';
+import 'gridEx.dart';
 
 class PinterestGrid extends StatelessWidget {
   PinterestGrid({Key key}) : super(key: key);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -27,16 +25,8 @@ class PinterestGrid extends StatelessWidget {
           color: Colors.purple[900],
         ),
         backgroundColor: Colors.pink[50],
-        title: Container(
-          height: 50,
-          width: 160,
-          child: ClipRect(
-            child: Image(
-              image: AssetImage("assets/images/logo.jpg"),
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
+        title: Text('Kids Fashion',
+            style: TextStyle(color: Colors.purple[900], fontSize: 22)),
         actions: [
           IconButton(
             icon: Icon(
@@ -61,8 +51,8 @@ class PinterestGrid extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                width: 420,
-                height: 200,
+                width: size.width,
+                height: size.height * 0.27,
                 child: CarouselSlider(
                   options: CarouselOptions(
                     height: 400,
@@ -90,23 +80,70 @@ class PinterestGrid extends StatelessWidget {
                           ))
                       .toList(),
                 )),
-            Container(
-              padding: EdgeInsets.only(top: 15, left: 5, right: 5),
-              child: StaggeredGridView.countBuilder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                itemCount: imgList.length,
-                itemBuilder: (context, index) => Container(
-                  height: 200,
-                  child: ImageCard(
-                    imgList[index],
-                  ),
-                ),
-                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
+            SizedBox(
+              height: 10,
+            ),
+            Wrap(
+              children: List.generate(gridItems.length, (index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GridExPage(
+                                  id: gridItems[index]['id'],
+                                  title: gridItems[index]['title'],
+                                  image: gridItems[index]['image'],
+                                  price: gridItems[index]['price'],
+                                  promotionPrice: gridItems[index]
+                                          ['promotionPrice']
+                                      .toString(),
+                                  size: gridItems[index]['size'],
+                                  color: gridItems[index]['color'],
+                                )));
+                  },
+                  child: Card(
+                      elevation: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Hero(
+                            tag: gridItems[index]['id'],
+                            child: Container(
+                              width: (size.width - 16) / 2,
+                              height: (size.width - 70) / 2,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage(gridItems[index]['image']),
+                                      fit: BoxFit.cover)),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              gridItems[index]['title'],
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15, bottom: 5),
+                            child: Text(
+                              "\$ ${gridItems[index]['price']}".toString(),
+                              style: TextStyle(
+                                  fontSize: 17, color: Colors.purple[600]),
+                            ),
+                          ),
+                        ],
+                      )),
+                );
+              }),
             ),
           ],
         ),

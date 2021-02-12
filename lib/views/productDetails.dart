@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 // import 'package:nappies_direct/views/fashionData.dart';
-import 'package:nappies_direct/views/shop_items.dart';
+import 'package:nappies_direct/views/saveLaterPage.dart';
 import 'package:photo_view/photo_view.dart';
 // import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 
@@ -98,7 +98,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   Widget getBody() {
     // bool toggle = false;
-
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -136,21 +136,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               SizedBox(
                 height: 10,
               ),
-              Card(
-                elevation: 2,
-                child: Hero(
-                  tag: widget.id.toString(),
-                  child: Container(
-                      height: 400,
-                      child: PhotoView(
-                        imageProvider: AssetImage(activeImg),
-                        minScale: PhotoViewComputedScale.contained * 0.9,
-                        maxScale: PhotoViewComputedScale.covered * 1.0,
-                        // enableRotation: true,
-                        backgroundDecoration:
-                            BoxDecoration(color: Colors.white),
-                      )),
-                ),
+              Hero(
+                tag: widget.id.toString(),
+                child: Container(
+                    height: size.height * 0.5,
+                    child: PhotoView(
+                      imageProvider: AssetImage(activeImg),
+                      customSize: Size.fromHeight(size.height * 0.5),
+                      minScale: PhotoViewComputedScale.contained * 1.0,
+                      maxScale: PhotoViewComputedScale.contained * 1.0,
+                      // enableRotation: true,
+                      backgroundDecoration: BoxDecoration(color: Colors.white),
+                    )),
               ),
               SizedBox(
                 height: 20,
@@ -159,7 +156,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 scrollDirection: Axis.horizontal,
                 child: Container(
                   padding: EdgeInsets.only(left: 10),
-                  width: 700,
+                  width: size.height,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
