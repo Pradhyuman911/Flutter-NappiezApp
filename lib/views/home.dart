@@ -5,7 +5,7 @@ import 'package:nappies_direct/views/gridEx.dart';
 // import 'package:nappies_direct/views/login.dart';
 import 'package:nappies_direct/views/login2.dart';
 import 'package:nappies_direct/views/profile.dart';
-import 'package:nappies_direct/views/saveLaterPage.dart';
+import 'package:nappies_direct/views/cart.dart';
 import 'package:nappies_direct/views/wishlist.dart';
 import 'data.dart';
 import 'fashion.dart';
@@ -629,20 +629,18 @@ class _HomePageState extends State<HomePage> {
                           }),
                     ),
                     BottomNavigationBarItem(
-                      // ignore: deprecated_member_use
-                      title:
-                          Text("Cart", style: TextStyle(color: Colors.black)),
-                      icon: IconButton(
+                        // ignore: deprecated_member_use
+                        title:
+                            Text("Cart", style: TextStyle(color: Colors.black)),
+                        icon: IconButton(
                           icon: new Icon(
                             Icons.shopping_cart_outlined,
                             size: 27.0,
                             color: Colors.black,
                           ),
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ShopItems()))),
-                    ),
+                          onPressed: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart())),
+                        )),
                     BottomNavigationBarItem(
                       // ignore: deprecated_member_use
                       title: Text("Wishlist",

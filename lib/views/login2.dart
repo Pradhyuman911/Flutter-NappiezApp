@@ -54,6 +54,7 @@ class _LoginApiState extends State<LoginApi> {
   Future signIn(String email, String password, String uuid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String url = "http://firstchoice.net.in/api/user/login";
+    // ignore: avoid_init_to_null
     var data = null;
     final response = await http.post(url,
         headers: {'Accept': "application/json"},
@@ -62,19 +63,25 @@ class _LoginApiState extends State<LoginApi> {
       data = json.decode(response.body);
       setState(() {
         _isLoading = false;
-        print('login successful');
-        print(response.body);
-        String name = data['user']['name'];
-        String email = data['user']['email'];
-        String phone = data["user"]['phone_no'];
-        prefs.setString('email', email);
-        prefs.setString('name', name);
-        prefs.setString('phone_no', phone);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-            (Route<dynamic> route) => false);
       });
+      print('login successfull');
+      print(response.body);
+      String name = data['user']['name'];
+      String email = data['user']['email'];
+      String phone = data["user"]['phone_no'];
+      String token = data['token']['token'];
+      print(token);
+      prefs.setString('email', email);
+      prefs.setString('name', name);
+      prefs.setString('phone_no', phone);
+      prefs.setString('token', token);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+          (Route<dynamic> route) => false);
     } else {
+      setState(() {
+        _isLoading = false;
+      });
       print(response.body);
     }
   }
@@ -149,6 +156,7 @@ class _LoginApiState extends State<LoginApi> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
+                                icon: new Icon(Icons.email),
                                 labelText: 'Email'),
                             controller: emailController,
                             validator: MultiValidator([
@@ -162,10 +170,11 @@ class _LoginApiState extends State<LoginApi> {
                           child: TextFormField(
                               obscureText: true,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                  labelText: 'Password'),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                labelText: 'Password',
+                                icon: new Icon(Icons.vpn_key),
+                              ),
                               controller: passController,
                               validator: validatePass),
                         ),

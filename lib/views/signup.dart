@@ -170,10 +170,12 @@ class _SignUpState extends State<SignUp> {
                                   child: TextFormField(
                                     controller: _name,
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        labelText: 'User Name'),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      labelText: 'User Name',
+                                      icon: new Icon(Icons.person),
+                                    ),
                                     validator: nameValidate,
                                   ),
                                 ),
@@ -182,10 +184,12 @@ class _SignUpState extends State<SignUp> {
                                   child: TextFormField(
                                     controller: _emailController,
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        labelText: 'Email'),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      labelText: 'Email',
+                                      icon: new Icon(Icons.email),
+                                    ),
                                     validator: MultiValidator([
                                       RequiredValidator(
                                           errorText: 'Required *'),
@@ -198,10 +202,12 @@ class _SignUpState extends State<SignUp> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextFormField(
                                       decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0)),
-                                          labelText: 'Password'),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0)),
+                                        icon: new Icon(Icons.vpn_key),
+                                        labelText: 'Password',
+                                      ),
                                       controller: _pass,
                                       validator: validatePass),
                                 ),
@@ -212,6 +218,7 @@ class _SignUpState extends State<SignUp> {
                                           border: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(15.0)),
+                                          icon: new Icon(Icons.phone_android),
                                           labelText: ' Phone No.'),
                                       controller: _phone,
                                       validator: validatePhone),

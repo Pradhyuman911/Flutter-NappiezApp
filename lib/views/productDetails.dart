@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 // import 'package:nappies_direct/views/fashionData.dart';
-import 'package:nappies_direct/views/saveLaterPage.dart';
+import 'package:nappies_direct/views/cart.dart';
 import 'package:photo_view/photo_view.dart';
 // import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 
@@ -128,7 +128,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: IconButton(
                       icon: Icon(Icons.shopping_cart),
                       onPressed: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ShopItems())),
+                          MaterialPageRoute(builder: (context) => Cart())),
                     ),
                   )
                 ],

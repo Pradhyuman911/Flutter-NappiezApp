@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nappies_direct/views/login.dart';
 import 'package:nappies_direct/views/profile.dart';
-import 'package:nappies_direct/views/saveLaterPage.dart';
+import 'package:nappies_direct/views/cart.dart';
 import 'package:nappies_direct/views/wishlist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +18,8 @@ class DrawerApp extends StatefulWidget {
 class _DrawerAppState extends State<DrawerApp> {
   dynamic email = "";
   dynamic name = "";
+  String token = "";
+  bool _isDisplay = false;
 
   Future<dynamic> getEmailPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -102,28 +104,29 @@ class _DrawerAppState extends State<DrawerApp> {
               ],
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.login),
-            title: Text("Login"),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => LoginApi()));
-            },
-          ),
+          _isDisplay
+              ? ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Profile'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                  },
+                )
+              : ListTile(
+                  leading: Icon(Icons.login),
+                  title: Text("Login"),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginApi()));
+                  },
+                ),
           ListTile(
             leading: Icon(Icons.shopping_cart),
             title: Text('My Cart'),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ShopItems()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cart()));
             },
           ),
           ListTile(
@@ -146,8 +149,9 @@ class _DrawerAppState extends State<DrawerApp> {
             leading: Icon(Icons.logout),
             title: Text("Logout"),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+              _save('0');
+              Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => new LoginApi()));
             },
           )
         ],
@@ -156,9 +160,36 @@ class _DrawerAppState extends State<DrawerApp> {
   }
 
   updateEmail(dynamic email, dynamic name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    if (token == '0') {
+      setState(() {
+        email = 'demo';
+        name = 'demo';
+        _isDisplay = false;
+      });
+      return getToken(token);
+    } else {
+      setState(() {
+        this.email = email;
+        this.name = name;
+        _isDisplay = true;
+      });
+      // return null;
+    }
+  }
+
+  getToken(String token) async {
     setState(() {
-      this.email = email;
-      this.name = name;
+      this.token = token;
     });
+  }
+
+  _save(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = token;
+    prefs.setString(key, value);
+    print(value);
   }
 }

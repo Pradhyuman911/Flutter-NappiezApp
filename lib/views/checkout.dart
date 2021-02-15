@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 import 'package:nappies_direct/views/address.dart';
-import 'package:nappies_direct/views/saveLaterPage.dart';
+import 'package:nappies_direct/views/cart.dart';
 import 'package:nappies_direct/views/wishlist.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -16,6 +16,10 @@ class Checkout extends StatefulWidget {
 
 class _CheckoutState extends State<Checkout> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String uuid = '1';
+  // ignore: unused_field
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -493,10 +497,8 @@ class _CheckoutState extends State<Checkout> {
                             size: 27.0,
                             color: Colors.black,
                           ),
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ShopItems()))),
+                          onPressed: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()))),
                     ),
                     BottomNavigationBarItem(
                       // ignore: deprecated_member_use
