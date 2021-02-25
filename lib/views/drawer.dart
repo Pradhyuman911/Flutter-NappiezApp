@@ -150,8 +150,6 @@ class _DrawerAppState extends State<DrawerApp> {
             title: Text("Logout"),
             onTap: () {
               _save('0');
-              Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new LoginApi()));
             },
           )
         ],
@@ -164,8 +162,8 @@ class _DrawerAppState extends State<DrawerApp> {
     String token = prefs.getString('token');
     if (token == '0') {
       setState(() {
-        email = 'demo';
-        name = 'demo';
+        email = 'Login Again';
+        this.name = ' Please Login';
         _isDisplay = false;
       });
       return getToken(token);
@@ -191,5 +189,7 @@ class _DrawerAppState extends State<DrawerApp> {
     final value = token;
     prefs.setString(key, value);
     print(value);
+    Navigator.of(context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => new LoginApi()));
   }
 }

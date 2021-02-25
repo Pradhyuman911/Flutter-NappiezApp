@@ -17,6 +17,7 @@ class _LoginApiState extends State<LoginApi> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String uuid = '1';
   bool _isLoading = false;
+  String message = "";
 
   void validate() {
     if (formKey.currentState.validate()) {
@@ -59,8 +60,8 @@ class _LoginApiState extends State<LoginApi> {
     final response = await http.post(url,
         headers: {'Accept': "application/json"},
         body: {'email': email, 'password': password, 'unique_id': uuid});
+    data = json.decode(response.body);
     if (response.statusCode == 200) {
-      data = json.decode(response.body);
       setState(() {
         _isLoading = false;
       });
@@ -79,11 +80,19 @@ class _LoginApiState extends State<LoginApi> {
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),
           (Route<dynamic> route) => false);
     } else {
+      String message = data['message'];
+      prefs.setString('message', message);
+      print(response.body);
       setState(() {
         _isLoading = false;
       });
-      print(response.body);
     }
+  }
+
+  Future<String> getError() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    message = prefs.getString('message');
+    return updateError(message);
   }
 
   @override
@@ -132,6 +141,26 @@ class _LoginApiState extends State<LoginApi> {
                         Text('Login Again \n Check Required Fields again ',
                             style: TextStyle(
                                 color: Colors.purple[900], fontSize: 22)),
+                        FutureBuilder(
+                          future: getError(),
+                          initialData: "First Login ...",
+                          builder: (BuildContext context, text) {
+                            return SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    message,
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                         IconButton(
                           icon: Icon(Icons.arrow_back_ios),
                           onPressed: () {
@@ -178,28 +207,7 @@ class _LoginApiState extends State<LoginApi> {
                               controller: passController,
                               validator: validatePass),
                         ),
-                        InkWell(
-                          onTap: validateLogin,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 128.0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.purple[900]),
-                                  color: Colors.pink[50],
-                                  borderRadius: BorderRadius.circular(32)),
-                              child: Center(
-                                  child: Text('Login',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          letterSpacing: 1.2,
-                                          color: Colors.purple[900],
-                                          fontWeight: FontWeight.w600))),
-                            ),
-                          ),
-                        ),
+                        _buildLoginButton(context),
                         SizedBox(
                           height: 15,
                         ),
@@ -228,5 +236,37 @@ class _LoginApiState extends State<LoginApi> {
         ),
       ),
     );
+  }
+
+  Widget _buildLoginButton(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        validateLogin();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 128.0),
+        child: Container(
+          width: double.infinity,
+          height: 40,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.purple[900]),
+              color: Colors.pink[50],
+              borderRadius: BorderRadius.circular(32)),
+          child: Center(
+              child: Text('Login',
+                  style: TextStyle(
+                      fontSize: 18,
+                      letterSpacing: 1.2,
+                      color: Colors.purple[900],
+                      fontWeight: FontWeight.w600))),
+        ),
+      ),
+    );
+  }
+
+  updateError(String message) async {
+    setState(() {
+      this.message = message;
+    });
   }
 }

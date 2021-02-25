@@ -72,9 +72,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child: FlatButton(
                 color: Colors.red,
                 onPressed: () {
-                  final snackBar =
-                      SnackBar(content: Text('Your Item is added to Cart'));
-                  Scaffold.of(context).showSnackBar(snackBar);
+                  // final snackBar =
+                  //     SnackBar(content: Text('Your Item is added to Cart'));
+                  // Scaffold.of(context).showSnackBar(snackBar);
                 },
                 child: Text(
                   "ADD TO CART",

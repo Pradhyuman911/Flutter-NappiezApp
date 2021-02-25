@@ -1,7 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:nappies_direct/bloc/cart_items_bloc.dart';
+import 'package:nappies_direct/models/addToCartModel.dart';
+import 'package:nappies_direct/views/MyStore.dart';
+import 'package:nappies_direct/views/data.dart';
+// import 'package:nappies_direct/models/cart_model.dart';
 // import 'package:flutter_cart/flutter_cart.dart';
 // import 'package:nappies_direct/views/fashionData.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'cart.dart';
 
 class GridExPage extends StatefulWidget {
   final int id;
@@ -28,10 +40,12 @@ class GridExPage extends StatefulWidget {
 }
 
 class _GridExPageState extends State<GridExPage> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int activeSize = 1;
   int activeColor = 0;
   String activeImg = '';
   int qty = 0;
+  bool _isLogged = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -40,6 +54,26 @@ class _GridExPageState extends State<GridExPage> {
       activeImg = widget.image;
     });
   }
+
+  // Future<AddToCart> addItem(String id, String price) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String token = prefs.getString('token');
+  //   final response =
+  //       await http.post('http://firstchoice.net.in/api/user/cart/addTocart',
+  //           headers: {
+  //             'Accept': 'application/json',
+  //             'Content-Type': 'application/json; charset=UTF-8',
+  //             'Authorization': "Bearer $token"
+  //           },
+  //           body: jsonEncode({'product_id': id, 'price': price,'qty':qtyC}));
+  //   if (response.statusCode == 201) {
+  //     print("if : - " + token);
+  //     return AddToCart.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     print('else : -' + token);
+  //     throw Exception('Failed to add in cart .');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +85,10 @@ class _GridExPageState extends State<GridExPage> {
   }
 
   Widget getBottom() {
+    // String id = '1';
+    // String price = '10';
+    // Future<AddToCart> _futureCart;
+    var store = Provider.of<MyStore>(context);
     var size = MediaQuery.of(context).size;
     return Container(
       height: 60,
@@ -62,9 +100,9 @@ class _GridExPageState extends State<GridExPage> {
             child: FlatButton(
                 color: Colors.red,
                 onPressed: () {
-                  final snackBar =
-                      SnackBar(content: Text('Your Item is added to Cart'));
-                  Scaffold.of(context).showSnackBar(snackBar);
+                  store.addOneItem(store.activeProduct);
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Cart()));
                 },
                 child: Text(
                   "ADD TO CART",
@@ -87,6 +125,7 @@ class _GridExPageState extends State<GridExPage> {
   }
 
   Widget getBody() {
+    var store = Provider.of<MyStore>(context);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Padding(

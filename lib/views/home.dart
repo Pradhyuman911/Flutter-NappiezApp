@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:nappies_direct/views/MyStore.dart';
 import 'package:nappies_direct/views/allProducts.dart';
 import 'package:nappies_direct/views/gridEx.dart';
 // import 'package:nappies_direct/views/login.dart';
 import 'package:nappies_direct/views/login2.dart';
+import 'package:nappies_direct/views/proGridPage.dart';
 import 'package:nappies_direct/views/profile.dart';
 import 'package:nappies_direct/views/cart.dart';
+import 'package:nappies_direct/views/providerPage.dart';
 import 'package:nappies_direct/views/wishlist.dart';
+import 'package:provider/provider.dart';
 import 'data.dart';
 import 'fashion.dart';
 import 'drawer.dart';
@@ -47,6 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var store = Provider.of<MyStore>(context);
     return Scaffold(
         backgroundColor: Colors.grey[200],
         key: _scaffoldKey,
@@ -312,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AllProductlist()));
+                                    builder: (context) => ProGridPage()));
                           },
                           icon: Icon(
                             Icons.arrow_forward,
@@ -378,7 +383,9 @@ class _HomePageState extends State<HomePage> {
                                           .toString(),
                                       size: gridItems[index]['size'],
                                       color: gridItems[index]['color'],
-                                    )));
+                                    )
+                                // GridExPage()
+                                ));
                       },
                       child: Card(
                           elevation: 2,
@@ -577,7 +584,7 @@ class _HomePageState extends State<HomePage> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                )
+                ),
               ]),
             ),
           ]),

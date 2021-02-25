@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'home.dart';
 import 'login2.dart';
 
@@ -18,6 +19,9 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _phone = TextEditingController();
   String uuid = '1';
   bool _isLoading = false;
+  String message = "";
+  String email = "";
+  String phone = "";
 
   void validate() {
     if (formKey.currentState.validate()) {
@@ -51,7 +55,7 @@ class _SignUpState extends State<SignUp> {
   String validatePhone(value) {
     if (value.isEmpty) {
       return 'Required *';
-    } else if (value.length < 10) {
+    } else if (value.length < 10 || value.length > 10) {
       return 'Phone No. Must be of 10 digits';
     } else {
       return null;
@@ -72,21 +76,40 @@ class _SignUpState extends State<SignUp> {
       'unique_id': uuid
     });
     var data = null;
+    data = json.decode(response.body);
     if (response.statusCode == 200) {
-      data = json.decode(response.body);
       setState(() {
-        _isLoading:
-        false;
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => LoginApi()),
-            (Route<dynamic> route) => false);
-        print('Sign Up successful');
-        print(response.body);
+        _isLoading = false;
       });
-    } else {
-      Text('Error Occured , Firstly SignUp');
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LoginApi()),
+          (Route<dynamic> route) => false);
+      print('Sign Up successful');
       print(response.body);
+    } else {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String message = data['message'];
+      String email = data['errors']['email'][0];
+      String phone = data['errors']['phone_no'][0];
+      prefs.setString('message', message);
+      prefs.setString('email', email);
+      prefs.setString('phone', phone);
+      print(email);
+      print(phone);
+      print(response.body);
+      print(response.statusCode);
+      setState(() {
+        _isLoading = false;
+      });
     }
+  }
+
+  Future<String> getError() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    message = prefs.getString('message');
+    email = prefs.getString('email');
+    phone = prefs.getString('phone');
+    return updateError(message, email, phone);
   }
 
   validateSignUp() {
@@ -96,7 +119,9 @@ class _SignUpState extends State<SignUp> {
       });
       signUp(_name.text, _emailController.text, _pass.text, _phone.text, uuid);
     } else {
-      return Text('Hello');
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -142,7 +167,50 @@ class _SignUpState extends State<SignUp> {
                 ? Center(
                     child: Column(
                     children: [
-                      Text('Sign Up again'),
+                      Text(
+                        'Sign Up again',
+                        style: TextStyle(
+                          color: Colors.redAccent[700],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                      FutureBuilder(
+                        future: getError(),
+                        initialData: "First Login ...",
+                        builder: (BuildContext context, text) {
+                          return SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Text(
+                                  message,
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Text(
+                                  email,
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Text(
+                                  phone,
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios),
                         onPressed: () {
@@ -152,6 +220,7 @@ class _SignUpState extends State<SignUp> {
                                   builder: (context) => SignUp()));
                         },
                       ),
+                      CircularProgressIndicator(),
                     ],
                   ))
                 : Column(
@@ -289,5 +358,13 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  updateError(String message, String email, String phone) async {
+    setState(() {
+      this.message = message;
+      this.email = email;
+      this.phone = phone;
+    });
   }
 }
