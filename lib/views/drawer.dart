@@ -64,7 +64,7 @@ class _DrawerAppState extends State<DrawerApp> {
                       child: Column(
                         children: [
                           Text(
-                            name,
+                            name ?? 'User8',
                             style: TextStyle(
                               color: Colors.grey[700],
                               fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class _DrawerAppState extends State<DrawerApp> {
                       child: Column(
                         children: [
                           Text(
-                            email,
+                            email ?? 'User8@gmail.com',
                             style: TextStyle(
                               color: Colors.grey[700],
                               fontWeight: FontWeight.bold,

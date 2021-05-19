@@ -183,7 +183,7 @@ class _SignUpState extends State<SignUp> {
                             child: Column(
                               children: [
                                 Text(
-                                  message,
+                                  message ?? 'error',
                                   style: TextStyle(
                                     color: Colors.grey[700],
                                     fontWeight: FontWeight.bold,
@@ -191,7 +191,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
                                 Text(
-                                  email,
+                                  email ?? 'email',
                                   style: TextStyle(
                                     color: Colors.grey[700],
                                     fontWeight: FontWeight.bold,
@@ -199,7 +199,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
                                 Text(
-                                  phone,
+                                  phone ?? 'number',
                                   style: TextStyle(
                                     color: Colors.grey[700],
                                     fontWeight: FontWeight.bold,

@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'cart.dart';
+import 'cart2.dart';
 
 class GridExPage extends StatefulWidget {
   final int id;
@@ -54,26 +54,6 @@ class _GridExPageState extends State<GridExPage> {
       activeImg = widget.image;
     });
   }
-
-  // Future<AddToCart> addItem(String id, String price) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String token = prefs.getString('token');
-  //   final response =
-  //       await http.post('http://firstchoice.net.in/api/user/cart/addTocart',
-  //           headers: {
-  //             'Accept': 'application/json',
-  //             'Content-Type': 'application/json; charset=UTF-8',
-  //             'Authorization': "Bearer $token"
-  //           },
-  //           body: jsonEncode({'product_id': id, 'price': price,'qty':qtyC}));
-  //   if (response.statusCode == 201) {
-  //     print("if : - " + token);
-  //     return AddToCart.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     print('else : -' + token);
-  //     throw Exception('Failed to add in cart .');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -402,5 +382,12 @@ class _GridExPageState extends State<GridExPage> {
         ),
       ),
     );
+  }
+
+  Widget getId() {
+    return SafeArea(
+        child: Column(
+      children: [],
+    ));
   }
 }

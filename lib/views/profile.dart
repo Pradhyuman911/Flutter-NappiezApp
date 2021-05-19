@@ -134,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(
                               children: [
                                 Text(
-                                  name,
+                                  name ?? 'User8',
                                   style: TextStyle(
                                     color: Colors.grey[700],
                                     fontWeight: FontWeight.bold,
@@ -181,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(
                               children: [
                                 Text(
-                                  email,
+                                  email ?? 'User8@gmail.com',
                                   style: TextStyle(
                                     color: Colors.grey[700],
                                     fontWeight: FontWeight.bold,
@@ -228,7 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(
                               children: [
                                 Text(
-                                  phone,
+                                  phone ?? '123456789',
                                   style: TextStyle(
                                     color: Colors.grey[700],
                                     fontWeight: FontWeight.bold,

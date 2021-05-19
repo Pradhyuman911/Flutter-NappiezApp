@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:nappies_direct/views/MyStore.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:nappies_direct/models/fakeModel.dart';
+import 'package:nappies_direct/views/FakeStore.dart';
 import 'package:nappies_direct/views/allProducts.dart';
+import 'package:nappies_direct/views/fakeStore.dart';
 import 'package:nappies_direct/views/gridEx.dart';
 // import 'package:nappies_direct/views/login.dart';
 import 'package:nappies_direct/views/login2.dart';
 import 'package:nappies_direct/views/proGridPage.dart';
 import 'package:nappies_direct/views/profile.dart';
-import 'package:nappies_direct/views/cart.dart';
+import 'package:nappies_direct/views/cart2.dart';
 import 'package:nappies_direct/views/providerPage.dart';
 import 'package:nappies_direct/views/wishlist.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +20,7 @@ import 'data.dart';
 import 'fashion.dart';
 import 'drawer.dart';
 import 'productDetails.dart';
+import 'package:http/http.dart' as http;
 
 final List imgList = [
   "assets/images/pro1.jpg",
@@ -31,6 +37,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<List<FakeModel>> futureData;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Icon cusIcon = Icon(
     Icons.search,
@@ -48,10 +55,24 @@ class _HomePageState extends State<HomePage> {
     ),
   );
 
+  // Future<List<FakeModel>> getData() async {
+  //   String myUrl = "https://fakestoreapi.com/products/";
+  //   var response = await http.get(myUrl);
+  //   List data = json.decode(response.body);
+  //   print('Response status : ${response.statusCode}');
+  //   return data.map((data) => FakeModel.fromJson(data)).toList();
+  // }
+
+  // @override
+  // void initState() {
+  //   futureData = getData();
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var store = Provider.of<MyStore>(context);
+    // var store = Provider.of<FakeStore>(context);
     return Scaffold(
         backgroundColor: Colors.grey[200],
         key: _scaffoldKey,

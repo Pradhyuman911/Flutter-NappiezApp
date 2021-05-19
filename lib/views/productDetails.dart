@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_cart/model/cart_model.dart';
 // import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 // import 'package:nappies_direct/views/fashionData.dart';
 import 'package:nappies_direct/views/cart.dart';
+import 'package:nappies_direct/views/fakeStore.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 // import 'package:nappies_direct/bloc/cart_items_bloc.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -35,6 +41,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int activeColor = 0;
   String activeImg = '';
   int qty = 1;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -71,11 +78,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           Expanded(
             child: FlatButton(
                 color: Colors.red,
-                onPressed: () {
-                  // final snackBar =
-                  //     SnackBar(content: Text('Your Item is added to Cart'));
-                  // Scaffold.of(context).showSnackBar(snackBar);
-                },
+                onPressed: () {},
                 child: Text(
                   "ADD TO CART",
                   style: TextStyle(fontSize: 18, color: Colors.white),
@@ -426,6 +429,68 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DeatilsPage extends StatefulWidget {
+  @override
+  _DeatilsPageState createState() => _DeatilsPageState();
+}
+
+class _DeatilsPageState extends State<DeatilsPage> {
+  @override
+  Widget build(BuildContext context) {
+    var store = Provider.of<FakeStore>(context);
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BasketPage()));
+              })
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            width: 200,
+            height: 100,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(store.activeProduct.image))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(store.activeProduct.title),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(store.activeProduct.price.toString()),
+          ),
+          RaisedButton(
+            onPressed: () {
+              store.addOneItem(store.activeProduct);
+              // addProduct();
+            },
+            child: Text('add to cart'),
+          )
+        ],
       ),
     );
   }

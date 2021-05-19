@@ -10,6 +10,7 @@ import 'package:nappies_direct/views/drawer.dart';
 import 'package:nappies_direct/views/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'fakeStore.dart';
 import 'login2.dart';
 
 class Cart extends StatefulWidget {
@@ -56,7 +57,7 @@ class _CartState extends State<Cart> {
         });
     data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      // print("if " + token);
+      print("if " + token);
       String carttotal = data['TotalProduct'].toString();
       prefs.getString(carttotal);
       print("Total Product in cart : " + data['TotalProduct'].toString());
@@ -86,7 +87,7 @@ class _CartState extends State<Cart> {
   }
 
   Widget build(BuildContext context) {
-    var store = Provider.of<MyStore>(context);
+    var store = Provider.of<FakeStore>(context);
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerApp(),
@@ -280,4 +281,46 @@ Widget cartListBuilder(snapshot) {
       );
     },
   );
+}
+
+class BasketPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var store = Provider.of<FakeStore>(context);
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      body: ListView.builder(
+        itemCount: store.baskets.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: [
+              Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(store.baskets[index].image))),
+              ),
+              Text(store.baskets[index].title),
+              RaisedButton(
+                  onPressed: () {
+                    store.removeOneItem(store.activeProduct);
+                  },
+                  child: Text('remove item from cart'))
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
